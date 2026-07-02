@@ -1,0 +1,104 @@
+@use "../../../styles" as *;
+
+// Input с анимацией
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputLabel {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.floatingLabel {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  padding: 0;
+  line-height: $lh-160;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: $color-black;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  font-weight: $regular;
+  transform-origin: left center;
+}
+
+.floatingLabelActive {
+  top: 0;
+  transform: translateY(-80%) scale(0.85);
+  background-color: $color-white;
+}
+
+.input {
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+  font-weight: $regular;
+  border-bottom: 1px solid $color-gray;
+  height: 32px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+
+  &:hover {
+    border-color: $color-accent;
+  }
+}
+
+.inputErrorBorder {
+  border-color: $color-error;
+
+  &:focus {
+    border-color: $color-error;
+  }
+}
+
+.inputError {
+  color: $color-error;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+@include xxl {
+  .floatingLabel {
+    font-size: 17px;
+  }
+
+  .input {
+    font-size: 17px;
+    height: 36px;
+  }
+}
+
+@include lg {
+  .floatingLabel {
+    font-size: 14px;
+  }
+
+  .input {
+    font-size: 14px;
+    height: 32px;
+  }
+}
+
+@include sm {
+  .floatingLabel {
+    font-size: 11px;
+  }
+
+  .input {
+    font-size: 16px;
+    height: 30px;
+  }
+}

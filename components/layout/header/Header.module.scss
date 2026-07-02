@@ -1,0 +1,133 @@
+@use "../../../styles" as *;
+
+:root {
+  --header-height: 100px;
+  --logo-width: 156px;
+  --header-gap: 40px;
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: $color-white;
+  height: var(--header-height);
+  .headerCnt {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+
+    .logoLink {
+      margin-top: -5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .headerBlock {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--header-gap);
+    }
+    .headerBlock:last-child {
+      justify-content: end;
+    }
+  }
+  .headerBlockBlockMb {
+    display: contents;
+  }
+  .headerPhoneMob {
+    display: none;
+  }
+}
+
+.logo {
+  width: var(--logo-width);
+  color: $color-accent;
+}
+
+@include xxl {
+  :root {
+    --header-height: 131px;
+    --logo-width: 187px;
+    --header-gap: 45px;
+  }
+}
+
+@include lg-only {
+  :root {
+    --header-height: 103px;
+    --header-gap: 25px;
+  }
+  .header {
+    .headerCnt {
+      .headerBlock:last-child {
+        gap: 35px;
+      }
+    }
+  }
+}
+
+@include md {
+  :root {
+    --header-height: 123px;
+  }
+  .header {
+    .headerCnt {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .headerBlock {
+        display: contents;
+        .headerFormBtn {
+          display: none;
+        }
+      }
+    }
+    .headerBlockBlockMb {
+      display: flex;
+      flex-direction: row;
+      gap: 62px;
+    }
+    .headerPhoneMob {
+      display: flex;
+    }
+    .headerPhonePC {
+      display: none;
+    }
+
+    .logoLink {
+      order: 2;
+    }
+    .headerSelect {
+      order: 3;
+    }
+  }
+}
+
+@include sm {
+  :root {
+    --header-height: 81px;
+    --logo-width: 133px;
+  }
+  .header {
+    .headerBlockBlockMb {
+      display: contents;
+    }
+
+    .logoLink {
+      order: 2;
+    }
+    .headerPhoneMob {
+      order: 3;
+    }
+    .headerSelect {
+      display: none;
+    }
+  }
+}

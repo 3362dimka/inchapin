@@ -1,0 +1,125 @@
+@use "../../../styles" as *;
+
+:root {
+  --VideoInfoSize: 14px;
+  --VideoTimeSize: 14px;
+  --VideoInfoLh: #{$lh-160};
+  --VideoPreviewSize: 186px;
+  --VideoPlaySize: 110px;
+}
+
+.VideoBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  cursor: pointer;
+  user-select: none;
+
+  .VideoInfo {
+    line-height: var(--VideoInfoLh);
+    .VideoName {
+      font-size: var(--VideoInfoSize);
+      margin-top: calc(var(--VideoTimeSize) * var(--VideoInfoLh));
+      font-weight: $semibold;
+      text-transform: uppercase;
+    }
+    .VideoTime {
+      font-size: var(--VideoTimeSize);
+      font-weight: $regular;
+      color: $color-text-gray;
+    }
+  }
+  .VideoDecor {
+    height: 1px;
+    background-color: $color-gray;
+    flex-grow: 1;
+  }
+  .VideoPreview {
+    width: var(--VideoPreviewSize);
+    height: var(--VideoPreviewSize);
+    border-radius: 100%;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 100%;
+      background-color: $color-accent;
+      opacity: 30%;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 100%;
+      transition: transform 0.25s ease;
+    }
+    .VideoPlay {
+      width: var(--VideoPlaySize);
+      height: var(--VideoPlaySize);
+      border: 1px solid $color-white;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      gap: 5px;
+      color: $color-white;
+      font-size: var(--VideoInfoSize);
+      list-style: $lh-160;
+      font-weight: $regular;
+      text-transform: uppercase;
+      position: absolute;
+      z-index: 100;
+      top: calc((var(--VideoPreviewSize) - var(--VideoPlaySize)) / 2);
+      left: calc((var(--VideoPreviewSize) - var(--VideoPlaySize)) / 2);
+      transition: transform 0.25s ease;
+    }
+    &:hover .VideoPlay {
+      transform: scale(1.8);
+    }
+    &:hover .img {
+      transform: scale(1.1);
+    }
+
+    &:active .VideoPlay {
+      transform: scale(1.5);
+    }
+    &:active .img {
+      transform: scale(1.2);
+    }
+  }
+}
+
+@include sm {
+  :root {
+    --VideoPreviewSize: 131px;
+    --VideoPlaySize: 77px;
+  }
+}
+
+@include lg {
+  :root {
+    --VideoInfoSize: 10px;
+    --VideoTimeSize: 13px;
+    --VideoPreviewSize: 133px;
+    --VideoPlaySize: 79px;
+  }
+}
+
+@include xxl {
+  :root {
+    --VideoInfoSize: 18px;
+    --VideoTimeSize: 18px;
+    --VideoPreviewSize: 241px;
+    --VideoPlaySize: 142px;
+  }
+}

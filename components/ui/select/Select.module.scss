@@ -1,0 +1,88 @@
+@use "../../../styles" as *;
+
+.select {
+  min-height: 44px;
+  .optionLink {
+    width: 100%;
+    display: block;
+    height: 100%;
+    padding: 10px 20px;
+  }
+  :global(.select__control) {
+    cursor: pointer;
+    min-height: 43px;
+    border: none;
+    border-radius: 100px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    background-color: $color-accent;
+    color: $color-white;
+    font-size: var(--text-sm-btn);
+    font-weight: $semibold;
+    line-height: $lh-100;
+    letter-spacing: $ls-7;
+    text-transform: uppercase;
+
+    @include button-animation;
+  }
+  :global(.select__value-container) {
+    display: flex;
+    padding: 0;
+    padding-right: 10px;
+  }
+
+  :global(.select__placeholder) {
+    color: $color-white;
+  }
+
+  :global(.select__dropdown-indicator svg) {
+    color: $color-white;
+  }
+
+  :global(.select__control--is-focused) {
+    box-shadow: none;
+  }
+
+  :global(.select__menu) {
+    border-radius: 8px;
+    overflow: hidden;
+    background: $color-white;
+    z-index: 50;
+    border: none;
+    box-shadow: var(--box-shadow);
+  }
+
+  :global(.select__option) {
+    cursor: pointer;
+    padding: 0px;
+  }
+
+  :global(.select__option--is-focused) {
+    background: $color-accent;
+    color: $color-white;
+  }
+
+  :global(.select__option--is-selected) {
+    background: $color-accent;
+    color: $color-white;
+  }
+}
+
+@include xxl {
+  .select {
+    min-height: 51px;
+    :global(.select__control) {
+      min-height: 51px;
+      padding: 0 26px;
+    }
+  }
+}
+
+@include md {
+  .select {
+    :global(.select__control) {
+      padding: 0 17px;
+    }
+  }
+}

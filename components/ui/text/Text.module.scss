@@ -1,0 +1,52 @@
+@use "../../../styles" as *;
+
+:root {
+  --text-sm: 16px;
+  --text-lg: 26px;
+}
+
+.text {
+  font-size: 26px;
+  text-transform: uppercase;
+  font-weight: $regular;
+
+  &.sm {
+    font-size: var(--text-sm);
+    line-height: $lh-160;
+  }
+  &.lg {
+    font-size: var(--text-lg);
+    line-height: $lh-140;
+  }
+}
+
+@include xxl {
+  :root {
+    --text-sm: 20px;
+    --text-lg: 34px;
+  }
+}
+
+@include lg {
+  :root {
+    --text-sm: 12px;
+    --text-lg: 19px;
+  }
+  .text {
+    &.sm {
+      line-height: $lh-180;
+    }
+  }
+}
+
+@include sm {
+  :root {
+    --text-sm: 11px;
+    --text-lg: 16px;
+  }
+  .text {
+    &.lg {
+      line-height: $lh-150;
+    }
+  }
+}

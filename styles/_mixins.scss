@@ -1,0 +1,72 @@
+@use "variables" as *;
+
+// ====================================================================
+//  МИКСИНЫ ДЛЯ МЕДИА-ЗАПРОСОВ
+// ====================================================================
+@mixin sm {
+  @media only screen and (max-width: $bp-sm) {
+    @content;
+  }
+}
+@mixin md {
+  @media only screen and (max-width: $bp-md-max) {
+    @content;
+  }
+}
+@mixin lg {
+  @media only screen and (max-width: $bp-lg-max) {
+    @content;
+  }
+}
+@mixin xl {
+  @media only screen and (max-width: $bp-xl-max) {
+    @content;
+  }
+}
+
+@mixin md-only {
+  @media only screen and (min-width: $bp-md-min) and (max-width: $bp-md-max) {
+    @content;
+  }
+}
+@mixin lg-only {
+  @media only screen and (min-width: $bp-lg-min) and (max-width: $bp-lg-max) {
+    @content;
+  }
+}
+@mixin xl-only {
+  @media only screen and (min-width: $bp-xl-min) and (max-width: $bp-xl-max) {
+    @content;
+  }
+}
+@mixin xxl {
+  @media only screen and (min-width: $bp-2xl) {
+    @content;
+  }
+}
+
+// Анимация кнопок
+@mixin button-animation {
+  .animationCnt {
+    overflow: hidden;
+
+    .animationTop {
+      transition: all 0.35s ease;
+
+      &::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transition: all 0.35s ease;
+        transform: translateY(120%);
+      }
+    }
+  }
+
+  &:hover .animationTop {
+    transform: translateY(-120%);
+  }
+}

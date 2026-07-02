@@ -1,0 +1,50 @@
+@use "../../../styles" as *;
+
+:root {
+  --h1-size: 26px;
+  --h2-size: 13px;
+}
+
+.title {
+  font-size: var(--h1-size);
+  &.h1 {
+    font-size: var(--h1-size);
+    text-transform: uppercase;
+    font-weight: $regular;
+    line-height: $lh-140;
+  }
+  &.h2 {
+    font-size: var(--h2-size);
+    text-transform: uppercase;
+    font-weight: $regular;
+    line-height: $lh-140;
+  }
+}
+
+@include sm {
+  :root {
+    --h1-size: 13px;
+    --h2-size: 11px;
+  }
+}
+
+@include md-only {
+  :root {
+    --h1-size: 26px;
+    --h2-size: 11px;
+  }
+}
+
+@include lg-only {
+  :root {
+    --h1-size: 19px;
+    --h2-size: 11px;
+  }
+}
+
+@include xxl {
+  :root {
+    --h1-size: 31px;
+    --h2-size: 17px;
+  }
+}

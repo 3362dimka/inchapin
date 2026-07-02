@@ -1,0 +1,122 @@
+@use "../../../styles" as *;
+
+/* Overlay styles */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: overlayIn 0.35s ease forwards;
+  z-index: 3000;
+  .modalContent {
+    max-width: 454px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    .modalHeader {
+      font-size: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: $regular;
+      line-height: $lh-120;
+    }
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  right: 60px;
+  top: 60px;
+  cursor: pointer;
+  color: $color-text;
+  transition: transform 0.2s ease;
+  width: 26px;
+  height: 26px;
+}
+
+.closeBtn:hover {
+  transform: rotate(90deg);
+  color: var(--color-accent);
+}
+
+.overlay.closing {
+  animation: overlayOut 0.3s ease forwards;
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlayOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@include xxl {
+  .overlay {
+    .modalContent {
+      gap: 80px;
+      max-width: 587px;
+      .modalHeader {
+        font-size: 52px;
+      }
+    }
+  }
+}
+
+@include lg {
+  .overlay {
+    .modalContent {
+      gap: 50px;
+      max-width: 370px;
+      .modalHeader {
+        font-size: 28px;
+      }
+    }
+  }
+  .closeBtn {
+    right: 50px;
+    top: 50px;
+  }
+}
+
+@include md {
+  .overlay {
+    .modalContent {
+      max-width: 438px;
+    }
+  }
+  .closeBtn {
+    right: 40px;
+    top: 40px;
+  }
+}
+
+@include sm {
+  .overlay {
+    .modalContent {
+      gap: 30px;
+      padding: 0 20px;
+      .modalHeader {
+        font-size: 20px;
+        text-align: left;
+      }
+    }
+  }
+  .closeBtn {
+    right: 20px;
+    top: 20px;
+  }
+}

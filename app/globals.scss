@@ -1,0 +1,81 @@
+@use "../styles/reset";
+@use "../styles" as *;
+@use "../styles/fonts";
+
+html {
+  font-size: 16px;
+  font-family: $font-family-primary;
+  max-width: 1920px;
+  margin: auto;
+  height: 100%;
+}
+
+body {
+  color: $color-text;
+}
+
+[data-scrollbar] {
+  position: static !important;
+}
+
+.conteiner {
+  max-width: 1920px;
+  margin: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  @include lg-only {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  @include md-only {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @include sm {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @include xxl {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+#scroll-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scrollbar-track {
+  z-index: 1000 !important;
+}
+
+html .color-accent {
+  color: $color-accent;
+}
+
+/* Класс для применения анимации */
+.fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.4s ease forwards;
+  animation-delay: 0.2s;
+}
+/* Определение анимации */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delay2 {
+  animation-delay: 0.3s;
+}
+
+.delay3 {
+  animation-delay: 0.4s;
+}

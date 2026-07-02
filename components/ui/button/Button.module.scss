@@ -1,0 +1,68 @@
+@use "../../../styles" as *;
+
+:root {
+  --text-sm-btn: 13px;
+  --text-md-btn: 14px;
+}
+
+.buttonBase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-transform: uppercase;
+  font-weight: $semibold;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.35s ease;
+  user-select: none;
+
+  @include button-animation;
+
+  // Варианты
+  &.button {
+    background-color: $color-accent;
+    color: $color-white;
+    padding: 18px 24px;
+    border-radius: 100px;
+    letter-spacing: $ls-7;
+  }
+
+  &.ghost {
+    letter-spacing: $ls-7;
+  }
+
+  &.icon {
+    width: 43px;
+    height: 43px;
+    border: 1px solid $color-accent;
+    border-radius: 100%;
+    transition: all 0.25s ease;
+    &:hover {
+      background-color: $color-accent;
+      color: $color-white;
+    }
+  }
+
+  &.sm {
+    font-size: var(--text-sm-btn);
+  }
+
+  &.md {
+    font-size: var(--text-md-btn);
+  }
+}
+
+@include lg {
+  :root {
+    --text-sm-btn: 12px;
+    --text-md-btn: 13px;
+  }
+}
+
+@include xxl {
+  :root {
+    --text-sm-btn: 15px;
+    --text-md-btn: 17px;
+  }
+}

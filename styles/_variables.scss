@@ -1,0 +1,47 @@
+//  ЦВЕТА
+$color-black: #000000;
+$color-white: #ffffff;
+$color-text: #111111;
+$color-text-gray: #888888;
+$color-gray: #d7d7d7;
+$color-accent: #2f80ed;
+$color-error: #ff4444;
+
+:root {
+  --color-black: #{$color-black};
+  --color-white: #{$color-white};
+  --color-text: #{$color-text};
+  --color-accent: #{$color-accent};
+}
+
+$light: 300;
+$regular: 400;
+$semibold: 600;
+$bold: 700;
+
+$lh-100: 1;
+$lh-120: 1.2;
+$lh-140: 1.4;
+$lh-150: 1.5;
+$lh-160: 1.6;
+$lh-180: 1.8;
+
+$ls-7: 7%;
+$ls-0: 0%;
+
+$font-family-primary: "Proxima Nova", sans-serif;
+
+//  БРЕЙКПОИНТЫ
+$bp-sm: 767px;
+$bp-md-min: 768px;
+$bp-md-max: 1023px;
+$bp-lg-min: 1024px;
+$bp-lg-max: 1280px;
+$bp-xl-min: 1281px;
+$bp-xl-max: 1769px;
+$bp-2xl: 1770px;
+
+// Тени
+:root {
+  --box-shadow: 7px 7px 30px 0px rgba(0, 0, 0, 0.2);
+}

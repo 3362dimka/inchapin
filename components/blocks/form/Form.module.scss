@@ -1,0 +1,89 @@
+@use "../../../styles" as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 41px;
+}
+
+.acceptence {
+  font-size: 12px;
+  line-height: $lh-140;
+  font-weight: $regular;
+  text-align: center;
+  color: $color-gray;
+  padding: 10px 30px 0px;
+  margin-bottom: -10px;
+  a {
+    transition: all 0.25s ease;
+    text-decoration: underline;
+    &:hover {
+      color: $color-accent;
+    }
+  }
+}
+
+.btn {
+  margin: auto;
+  font-size: 15px;
+  height: 62px;
+  max-width: 228px;
+  width: 100%;
+}
+
+@include xxl {
+  .form {
+    gap: 45px;
+    .floatingLabel {
+      font-size: 17px;
+    }
+
+    .input {
+      font-size: 17px;
+      height: 32px;
+    }
+
+    .acceptence {
+      font-size: 14px;
+      padding: 5px 40px 0px;
+      margin-bottom: -15px;
+    }
+    .btn {
+      font-size: 15px;
+      max-width: 234px;
+    }
+  }
+}
+
+@include lg {
+  .form {
+    gap: 40px;
+
+    .acceptence {
+      font-size: 11px;
+      padding: 10px 10px 0px;
+      margin-bottom: -5px;
+    }
+    .btn {
+      font-size: 14px;
+      max-width: 170px;
+      height: 54px;
+    }
+  }
+}
+
+@include sm {
+  .form {
+    gap: 34px;
+
+    .acceptence {
+      font-size: 12px;
+      padding: 10px 10px 0px;
+      margin-bottom: -10px;
+    }
+    .btn {
+      font-size: 11px;
+      height: 47px;
+    }
+  }
+}
