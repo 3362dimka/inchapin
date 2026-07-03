@@ -1,16 +1,15 @@
 "use client";
 
 import styles from "./Form.module.scss";
-import { usePathname, useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Input } from "@/components/ui/input/input";
+import { useState } from "react";
+import { Input } from "@/components/ui/input/Input";
 import { Animate, Button } from "@/components/ui/button/Button";
 import Link from "next/link";
+import { UI } from "@/data/ui";
 
-// Схема валидации Zod
 const formSchema = z.object({
   name: z.string().min(1, "Имя обязательно для заполнения"),
   phone: z
@@ -28,22 +27,8 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const CLOSE_ANIMATION_MS = 300;
-
 const Form = () => {
-  const router = useRouter();
-  const pathname = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current);
-      }
-    };
-  }, []);
 
   const {
     control,
@@ -63,7 +48,6 @@ const Form = () => {
     setIsSubmitting(true);
 
     try {
-      // Вывод всех полей в консоль
       console.log("=== ДАННЫЕ ФОРМЫ ===");
       console.log("Имя:", data.name);
       console.log("Телефон:", data.phone);
@@ -78,84 +62,57 @@ const Form = () => {
     }
   };
 
-  const handleClose = useCallback(() => {
-    if (isClosing) return;
-
-    setIsClosing(true);
-    closeTimeoutRef.current = setTimeout(() => {
-      if (pathname.startsWith("/form")) {
-        router.back();
-        return;
-      }
-
-      router.replace("/", { scroll: false });
-    }, CLOSE_ANIMATION_MS);
-  }, [isClosing, pathname, router]);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape" || isClosing) return;
-
-      handleClose();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleClose, isClosing]);
-
   return (
-    <>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="name"
-          control={control}
-          render={({ field }) => (
-            <Input
-              {...field}
-              label="Ваше имя"
-              placeholder="Введите ваше имя"
-              error={errors.name?.message}
-            />
-          )}
-        />
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="name"
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            label={UI.form.fields.name.label}
+            placeholder={UI.form.fields.name.placeholder}
+            error={errors.name?.message}
+          />
+        )}
+      />
 
-        <Controller
-          name="phone"
-          control={control}
-          render={({ field }) => (
-            <Input
-              {...field}
-              label="Телефон"
-              placeholder="+7 (___) ___-__-__"
-              mask="phone"
-              error={errors.phone?.message}
-            />
-          )}
-        />
+      <Controller
+        name="phone"
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            label={UI.form.fields.phone.label}
+            placeholder={UI.form.fields.phone.placeholder}
+            mask="phone"
+            error={errors.phone?.message}
+          />
+        )}
+      />
 
-        <Controller
-          name="email"
-          control={control}
-          render={({ field }) => (
-            <Input
-              {...field}
-              label="E-mail"
-              placeholder="example@mail.com"
-              error={errors.email?.message}
-            />
-          )}
-        />
+      <Controller
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            label={UI.form.fields.email.label}
+            placeholder={UI.form.fields.email.placeholder}
+            error={errors.email?.message}
+          />
+        )}
+      />
 
-        <span className={styles.acceptence}>
-          Нажимая на кнопку «Отправить», вы ознакомлены и подтверждаете согласие
-          с <Link href="#">политикой обработки персональных данных</Link>
-        </span>
+      <span className={styles.acceptance}>
+        Нажимая на кнопку «Отправить», вы ознакомлены и подтверждаете согласие
+        с <Link href="#">политикой обработки персональных данных</Link>
+      </span>
 
-        <Button className={styles.btn} type="submit" isLoading={isSubmitting}>
-          <Animate>{isSubmitting ? "Отправка..." : "Отправить"}</Animate>
-        </Button>
-      </form>
-    </>
+      <Button className={styles.btn} type="submit" isLoading={isSubmitting}>
+        <Animate>{isSubmitting ? UI.form.submitting : UI.form.submit}</Animate>
+      </Button>
+    </form>
   );
 };
 

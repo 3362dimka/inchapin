@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Modal from "@/components/ui/modal/Modal";
 import Form from "@/components/blocks/form/Form";
+import { UI } from "@/data/ui";
 
 export default function FormPage() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function FormPage() {
 
   return (
     <Modal onClose={handleClose}>
-      <Modal.Header>ЗАКАЗАТЬ ЗВОНОК</Modal.Header>
+      <Modal.Header>{UI.form.modalTitle}</Modal.Header>
       <Modal.Body>
         <Form />
       </Modal.Body>

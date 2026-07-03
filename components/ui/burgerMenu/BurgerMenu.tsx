@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import styles from "./BurgerMenu.module.scss";
 import Modal from "@/components/ui/modal/Modal";
-import { Title } from "../title/Title";
+import { UI } from "@/data/ui";
 
 export function BurgerMenu({
   children,
@@ -31,22 +31,15 @@ export function BurgerMenu({
 
       {open && (
         <Modal onClose={() => setOpen(false)}>
-          <Modal.Header>Меню</Modal.Header>
+          <Modal.Header>{UI.menu.title}</Modal.Header>
           <Modal.Body>
             <nav className={styles.menuNav}>
               <ul>
-                <li>
-                  <Link href="/">Главная</Link>
-                </li>
-                <li>
-                  <Link href="/about">О нас</Link>
-                </li>
-                <li>
-                  <Link href="/apartments">Квартиры</Link>
-                </li>
-                <li>
-                  <Link href="/contacts">Контакты</Link>
-                </li>
+                {UI.menu.nav.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href}>{item.label}</Link>
+                  </li>
+                ))}
               </ul>
             </nav>
           </Modal.Body>

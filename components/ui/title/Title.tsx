@@ -1,11 +1,7 @@
-import React from "react";
 import styles from "./Title.module.scss";
+import type { TitleProps } from "./types";
 
-interface TitleProps extends React.HTMLAttributes<HTMLElement> {
-  tag?: React.ElementType;
-  children: React.ReactNode;
-  className?: string;
-}
+export type { TitleProps } from "./types";
 
 export function Title({
   tag: Tag = "div",

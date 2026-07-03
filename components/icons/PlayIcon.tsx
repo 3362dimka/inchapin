@@ -1,4 +1,4 @@
-import { IconProps } from "../../types/IconProps.type";
+import { IconProps } from "./IconProps.type";
 const PlayIcon: React.FC<IconProps> = ({
   size = 12,
   color = "currentColor",

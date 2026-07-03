@@ -1,16 +1,17 @@
 import styles from "./not-found.module.scss";
 import { Title } from "@/components/ui/title/Title";
 import { Button } from "@/components/ui/button/Button";
+import { UI } from "@/data/ui";
 
 export default function NotFound() {
   return (
     <div className={styles.errorBlock}>
-      <div className={styles.code}>404</div>
+      <div className={styles.code}>{UI.notFound.code}</div>
       <Title tag="h2" className={`${styles.title} color-accent`}>
-        Страница не найдена
+        {UI.notFound.title}
       </Title>
       <p className={styles.text}>
-        Похоже, такой страницы не существует или она была перемещена.
+        {UI.notFound.description}
       </p>
       <Button
         as="link"
@@ -19,7 +20,7 @@ export default function NotFound() {
         size="lg"
         className={styles.button}
       >
-        На главную
+        {UI.notFound.button}
       </Button>
     </div>
   );

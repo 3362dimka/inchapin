@@ -1,34 +1,23 @@
 "use client";
 
-import { createContext, useEffect, useRef, useState, useCallback } from "react";
+import { createContext, useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { createPortal } from "react-dom";
 import styles from "./Modal.module.scss";
 import CloseIcon from "@/components/icons/CloseIcon";
+import type { ModalContextType, ModalProps, ModalHeaderProps, ModalBodyProps } from "./types";
 
-interface ModalContextType {
-  onClose: () => void;
-  closing: boolean;
-  setClosing: React.Dispatch<React.SetStateAction<boolean>>;
-  startClose: () => void;
-}
+export type { ModalProps, ModalHeaderProps, ModalBodyProps } from "./types";
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
-
-interface ModalProps {
-  children: React.ReactNode;
-  onClose: () => void;
-}
-
-interface ModalHeaderProps {
-  children: React.ReactNode;
-}
-
-interface ModalBodyProps {
-  children: React.ReactNode;
-}
 
 function ModalComponent({ children, onClose }: ModalProps) {
   const [closing, setClosing] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const startClose = useCallback(() => {
     if (closing) return;
@@ -50,14 +39,13 @@ function ModalComponent({ children, onClose }: ModalProps) {
     };
   }, [startClose, closing]);
 
-  // Cleanup on unmount to prevent errors during navigation
   useEffect(() => {
     return () => {
       setClosing(false);
     };
   }, []);
 
-  return (
+  const content = useMemo(() => (
     <ModalContext.Provider value={{ onClose, closing, setClosing, startClose }}>
       <div className={`${styles.overlay} ${closing ? styles.closing : ""}`}>
         <button onClick={startClose} className={styles.closeBtn}>
@@ -73,7 +61,11 @@ function ModalComponent({ children, onClose }: ModalProps) {
         </div>
       </div>
     </ModalContext.Provider>
-  );
+  ), [children, closing, onClose, startClose, setClosing]);
+
+  if (!mounted) return null;
+
+  return createPortal(content, document.body);
 }
 
 function ModalHeader({ children }: ModalHeaderProps) {

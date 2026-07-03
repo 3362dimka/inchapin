@@ -1,63 +1,28 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import PlayIcon from "@/components/icons/PlayIcon";
 import styles from "./Video.module.scss";
 import Image from "next/image";
 import { VideoModal } from "./VideoModal";
+import { HOME } from "@/data/home";
+import { useVideoMetadata } from "@/hooks/useVideoMetadata";
 
 export function Video() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [videoDuration, setVideoDuration] = useState<string>("--:-- минут");
-  const [isLoaded, setIsLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const { videoRef, duration } = useVideoMetadata({
+    src: "/videos/video.mp4",
+  });
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  // Получение длительности видео при монтировании
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleLoadedMetadata = () => {
-      console.log("loadedmetadata сработало", video.duration);
-      const duration = video.duration;
-      if (!isNaN(duration) && duration > 0 && !isLoaded) {
-        const minutes = Math.floor(duration / 60);
-        const seconds = Math.floor(duration % 60);
-        const formattedDuration = `${minutes}:${seconds.toString().padStart(2, "0")} минут`;
-        setVideoDuration(formattedDuration);
-        setIsLoaded(true);
-      }
-    };
-
-    // Проверяем, уже ли загружены метаданные
-    if (video.duration > 0) {
-      console.log("Метаданные уже загружены", video.duration);
-      handleLoadedMetadata();
-    } else {
-      console.log("Ожидание loadedmetadata");
-      video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    }
-
-    // Обработка ошибок загрузки
-    video.addEventListener("error", (e) => {
-      console.error("Ошибка загрузки видео", e);
-      setIsLoaded(true);
-    });
-
-    return () => {
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-    };
-  }, []);
 
   return (
     <>
       <div className={`${styles.VideoBlock}`} onClick={openModal}>
         <div className={`${styles.VideoInfo}`}>
-          <div className={`${styles.VideoName}`}>Видео о проекте</div>
-          <div className={`${styles.VideoTime}`}>{videoDuration}</div>
+          <div className={`${styles.VideoName}`}>{HOME.video.label}</div>
+          <div className={`${styles.VideoTime}`}>{duration}</div>
         </div>
         <div className={`${styles.VideoDecor}`}></div>
         <div className={`${styles.VideoPreview}`}>
@@ -66,8 +31,10 @@ export function Video() {
             src="/images/video-preview.jpg"
             width={241}
             height={241}
-            alt="about"
+            alt="Превью видео о проекте"
             sizes="(max-width: 767px) 100vw, 733px"
+            placeholder="blur"
+            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQxIiBoZWlnaHQ9IjI0MSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjQxIiBoZWlnaHQ9IjI0MSIgZmlsbD0iI2UwZTBlMCIvPjwvc3ZnPg=="
           />
           <div className={`${styles.VideoPlay}`}>
             <PlayIcon />

@@ -1,28 +1,17 @@
 "use client";
 
 import { useId } from "react";
-import ReactSelect from "react-select";
+import ReactSelect, {
+  components,
+  type OptionProps,
+  type PlaceholderProps,
+} from "react-select";
 import Link from "next/link";
 import ChevronDown from "@/components/icons/ChevronDown";
 import styles from "./Select.module.scss";
+import type { OptionType, SelectProps } from "./types";
 
-export type OptionType = {
-  value: string;
-  label: string;
-  href?: string;
-};
-
-type Props = {
-  options: OptionType[];
-  placeholder?: string;
-  value?: OptionType | null;
-  onChange?: (option: OptionType | null) => void;
-  isSearchable?: boolean;
-  className?: string;
-  ariaLabel?: string;
-};
-
-import { components, OptionProps, PlaceholderProps } from "react-select";
+export type { OptionType, SelectProps } from "./types";
 
 const Option = (props: OptionProps<OptionType, false>) => {
   const { data } = props;
@@ -58,7 +47,7 @@ export function Select({
   isSearchable = false,
   className = "",
   ariaLabel,
-}: Props) {
+}: SelectProps) {
   const rawId = useId();
   const id = rawId ? rawId.replace(/[:]/g, "") : undefined;
   const inputId = id ? `${id}-input` : undefined;

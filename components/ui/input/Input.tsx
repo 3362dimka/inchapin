@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { IMaskInput } from "react-imask";
 
 import styles from "./Input.module.scss";
+import type { InputProps, PhoneInputProps } from "./types";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  error?: string;
-  mask?: string;
-}
+export type { InputProps } from "./types";
 
 const PhoneInput = ({
   value,
@@ -20,7 +17,7 @@ const PhoneInput = ({
   placeholder,
   name,
   lazy,
-}: any) => {
+}: PhoneInputProps) => {
   return (
     <IMaskInput
       mask="+{7} (000) 000-00-00"
@@ -72,8 +69,8 @@ export const Input = ({
         className={`${styles.input} ${error ? styles.inputErrorBorder : ""} ${className || ""}`}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onChange={handleChange}
-        value={props.value}
+        onChange={handleChange as PhoneInputProps["onChange"]}
+        value={String(props.value ?? "")}
         placeholder={isFocused ? props.placeholder : ""}
         name={props.name}
         lazy={!isFocused}

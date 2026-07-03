@@ -2,85 +2,75 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import styles from "./VideoModal.module.scss";
+import type { VideoModalProps } from "./types";
 
-interface VideoModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  src: string;
-}
+export type { VideoModalProps } from "./types";
+
+const isFullscreenSupported = (): boolean => {
+  if (typeof document === "undefined") return false;
+  if (document.fullscreenEnabled) return true;
+  const doc = document as unknown as { webkitFullscreenEnabled?: boolean };
+  return !!doc.webkitFullscreenEnabled;
+};
+
+const requestFullscreen = (el: HTMLElement): Promise<void> => {
+  const anyEl = el as HTMLElement & {
+    webkitRequestFullscreen?: () => Promise<void>;
+  };
+  if (el.requestFullscreen) return el.requestFullscreen();
+  if (anyEl.webkitRequestFullscreen) return anyEl.webkitRequestFullscreen();
+  return Promise.resolve();
+};
+
+const exitFullscreen = (): Promise<void> => {
+  if (document.exitFullscreen) return document.exitFullscreen();
+  const doc = document as unknown as {
+    webkitExitFullscreen?: () => Promise<void>;
+  };
+  if (doc.webkitExitFullscreen) return doc.webkitExitFullscreen();
+  return Promise.resolve();
+};
 
 export function VideoModal({ isOpen, onClose, src }: VideoModalProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const closeModal = useCallback(async () => {
-    if (document.fullscreenElement) {
-      await document.exitFullscreen().catch(() => {});
+    if (document.fullscreenElement || (document as unknown as { webkitFullscreenElement?: Element }).webkitFullscreenElement) {
+      await exitFullscreen().catch(() => {});
     }
-
     onClose();
   }, [onClose]);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || !containerRef.current) return;
 
     const handleFullscreenChange = () => {
-      if (!document.fullscreenElement) {
+      const isFS = document.fullscreenElement || (document as unknown as { webkitFullscreenElement?: Element }).webkitFullscreenElement;
+      if (!isFS) {
         onClose();
       }
     };
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
 
-    containerRef.current?.requestFullscreen().catch((err) => {
-      console.warn("Ошибка входа в полноэкранный режим:", err);
-    });
+    if (isFullscreenSupported()) {
+      requestFullscreen(containerRef.current).catch(() => {});
+    }
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
     };
   }, [isOpen, onClose]);
 
-  // Получение длительности видео
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !isOpen) return;
 
-    const handleLoadedMetadata = () => {
-      const duration = video.duration;
-      if (!isNaN(duration)) {
-        const minutes = Math.floor(duration / 60);
-        const seconds = Math.floor(duration % 60);
-        const formattedDuration = `${minutes}:${seconds
-          .toString()
-          .padStart(2, "0")} минут`;
-
-        const durationElement = document.querySelector(
-          `.${styles.videoDuration}`,
-        );
-
-        if (durationElement) {
-          durationElement.textContent = formattedDuration;
-        }
-      }
-    };
-
-    video.addEventListener("loadedmetadata", handleLoadedMetadata);
-
-    return () => {
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-    };
-  }, [isOpen]);
-
-  // Автовоспроизведение
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
     if (isOpen) {
-      video.play().catch((err) => {
-        console.warn("Автовоспроизведение заблокировано:", err);
-      });
+      video.play().catch(() => {});
     } else {
       video.pause();
       video.currentTime = 0;

@@ -1,12 +1,5 @@
-import React from "react";
 import styles from "./Text.module.scss";
-
-interface TextProps extends React.HTMLAttributes<HTMLElement> {
-  tag?: React.ElementType;
-  children: React.ReactNode;
-  className?: string;
-  size?: "sm" | "md" | "lg";
-}
+import type { TextProps } from "./types";
 
 export function Text({
   tag: Tag = "div",

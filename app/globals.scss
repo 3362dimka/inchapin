@@ -18,7 +18,7 @@ body {
   position: static !important;
 }
 
-.conteiner {
+.container {
   max-width: 1920px;
   margin: auto;
   padding-left: 40px;
@@ -41,17 +41,22 @@ body {
   }
 }
 
-#scroll-container {
+.scroll-container {
   height: 100vh;
   overflow: hidden;
+
+  @include sm {
+    height: auto;
+    overflow: visible;
+  }
 }
 
 .scrollbar-track {
   z-index: 1000 !important;
 }
 
-html .color-accent {
-  color: $color-accent;
+.color-accent {
+  color: var(--color-accent);
 }
 
 /* Класс для применения анимации */

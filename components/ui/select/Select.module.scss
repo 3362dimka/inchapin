@@ -23,7 +23,9 @@
     line-height: $lh-100;
     letter-spacing: $ls-7;
     text-transform: uppercase;
-
+    :global(.select__single-value) {
+      color: $color-white;
+    }
     @include button-animation;
   }
   :global(.select__value-container) {

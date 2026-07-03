@@ -1,4 +1,4 @@
-import { IconProps } from "../../types/IconProps.type";
+import { IconProps } from "./IconProps.type";
 const CompanySVG: React.FC<IconProps> = ({
   size = 862,
   color = "currentColor",

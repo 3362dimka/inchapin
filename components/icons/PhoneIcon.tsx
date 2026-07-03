@@ -1,4 +1,4 @@
-import { IconProps } from "../../types/IconProps.type";
+import { IconProps } from "./IconProps.type";
 const PhoneIcon: React.FC<IconProps> = ({
   size = 14,
   color = "currentColor",

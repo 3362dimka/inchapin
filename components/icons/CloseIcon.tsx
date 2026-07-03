@@ -1,4 +1,4 @@
-import { IconProps } from "../../types/IconProps.type";
+import { IconProps } from "./IconProps.type";
 const CloseIcon: React.FC<IconProps> = ({
   size = 27,
   color = "currentColor",

@@ -5,13 +5,14 @@ import { Text } from "@/components/ui/text/Text";
 import Image from "next/image";
 import { Video } from "@/components/ui/video/Video";
 import styles from "./About.module.scss";
+import { HOME } from "@/data/home";
 
 export function About() {
   return (
     <div className={styles.aboutBlock}>
       <div className={styles.aboutleft}>
         <Title tag="h2" className={`${styles.aboutTitle} color-accent`}>
-          О проекте
+          {HOME.about.title}
         </Title>
         <div className={styles.imgCnt}>
           <Image
@@ -19,7 +20,9 @@ export function About() {
             src="/images/about.jpg"
             width={733}
             height={900}
-            alt="about"
+            alt="О проекте INCHAPIN"
+            placeholder="blur"
+            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzMzIiBoZWlnaHQ9IjkwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNzMzIiBoZWlnaHQ9IjkwMCIgZmlsbD0iI2UwZTBlMCIvPjwvc3ZnPg=="
           />
           <div className={styles.logoShortCnt}>
             <LogoShort className={styles.logoShort} />
@@ -29,18 +32,17 @@ export function About() {
       <div className={styles.aboutRight}>
         <div className={styles.aboutAccent}>
           <Underline color="var(--color-accent)" className={styles.Underline} />
-          <Text tag="p" size="lg">
-            Уютное и безопасное пространство для счастливой,{" "}
-            <span className="color-accent">спокойной и размеренной жизни</span>
-          </Text>
+          <Text
+            tag="p"
+            size="lg"
+            dangerouslySetInnerHTML={{ __html: HOME.about.text1 }}
+          ></Text>
         </div>
-        <Text tag="p" size="sm">
-          <span className="color-accent">
-            Квартиры от 65 до 356 м² с чистовой отделкой,
-          </span>{" "}
-          балконами, лоджиями и террасами в собственной закрытой охраняемой
-          территории.
-        </Text>
+        <Text
+          tag="p"
+          size="sm"
+          dangerouslySetInnerHTML={{ __html: HOME.about.text2 }}
+        ></Text>
         <Video />
       </div>
     </div>

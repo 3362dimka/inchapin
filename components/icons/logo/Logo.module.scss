@@ -39,7 +39,7 @@ $hover-transition: 0.3s;
       fill: transparent;
     }
     100% {
-      fill: rgb(47, 128, 237);
+      fill: $color-accent;
     }
   }
 
@@ -48,7 +48,7 @@ $hover-transition: 0.3s;
       fill: transparent;
     }
     100% {
-      fill: rgb(47, 128, 237);
+      fill: $color-accent;
     }
   }
 }

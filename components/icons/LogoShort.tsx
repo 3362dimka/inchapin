@@ -1,4 +1,4 @@
-import { IconProps } from "../../types/IconProps.type";
+import { IconProps } from "./IconProps.type";
 const logoShort: React.FC<IconProps> = ({
   size = 63,
   color = "currentColor",

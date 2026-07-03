@@ -1,36 +1,12 @@
 "use client";
 
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import Link from "next/link";
 
 import styles from "./Button.module.scss";
+import type { AnimateProps, ButtonWithLoading } from "./types";
 
-type ButtonVariant = "button" | "ghost" | "link" | "icon";
-type ButtonSize = "sm" | "md" | "lg";
-
-interface BaseButtonProps {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  className?: string;
-  children: React.ReactNode;
-}
-
-type ButtonAsButton = BaseButtonProps & {
-  as?: "button";
-  href?: never;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-type ButtonAsLink = BaseButtonProps & {
-  as: "link";
-  href: string;
-} & Omit<React.ComponentProps<typeof Link>, "href" | "className" | "children">;
-
-export type ButtonProps = ButtonAsButton | ButtonAsLink;
-
-interface AnimateProps {
-  children: React.ReactNode;
-  className?: string;
-}
+export type { ButtonProps, ButtonWithLoading, ButtonVariant, ButtonSize } from "./types";
 
 export const Animate = ({ children, className }: AnimateProps) => {
   return (
@@ -44,22 +20,6 @@ export const Animate = ({ children, className }: AnimateProps) => {
     </div>
   );
 };
-
-interface ButtonWithLoadingProps extends BaseButtonProps {
-  isLoading?: boolean;
-}
-
-type ButtonAsButtonWithLoading = ButtonWithLoadingProps & {
-  as?: "button";
-  href?: never;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-type ButtonAsLinkWithLoading = ButtonWithLoadingProps & {
-  as: "link";
-  href: string;
-} & Omit<React.ComponentProps<typeof Link>, "href" | "className" | "children">;
-
-export type ButtonWithLoading = ButtonAsButtonWithLoading | ButtonAsLinkWithLoading;
 
 export const Button = forwardRef<
   HTMLButtonElement | HTMLAnchorElement,

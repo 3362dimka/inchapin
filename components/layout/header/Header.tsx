@@ -1,38 +1,32 @@
 import styles from "./Header.module.scss";
 import Logo from "../../icons/logo/Logo";
 import { Animate, Button } from "@/components/ui/button/Button";
-import { Select } from "@/components/ui/select/Select";
+import { HeaderSelect } from "./HeaderSelect";
 import { BurgerMenu } from "@/components/ui/burgerMenu/BurgerMenu";
 import Link from "next/link";
 import PhoneIcon from "@/components/icons/PhoneIcon";
+import { CONTACTS } from "@/data/contacts";
+import { UI } from "@/data/ui";
 
 export function Header() {
   return (
     <header className={styles.header}>
-      <div className={`${styles.headerCnt} conteiner`}>
+      <div className={`${styles.headerCnt} container`}>
         <div className={styles.headerBlock}>
           <div className={styles.headerBlockBlockMb}>
-            <BurgerMenu>Меню</BurgerMenu>
+            <BurgerMenu>{UI.menu.burgerLabel}</BurgerMenu>
             <Button
               as="link"
               variant="icon"
               size="md"
-              href="tel:+74955272121"
+              href={CONTACTS.phoneLink}
               className={styles.headerPhoneMob}
             >
               <PhoneIcon />
             </Button>
           </div>
 
-          <Select
-            className={styles.headerSelect}
-            ariaLabel="Выбрать квартиру"
-            options={[
-              { value: "1", label: "Первый", href: "/apartment-1" },
-              { value: "2", label: "Второй", href: "/apartment-2" },
-            ]}
-            placeholder="Выбрать квартиру"
-          />
+          <HeaderSelect className={styles.headerSelect} />
         </div>
         <Link href="/" className={styles.logoLink}>
           <Logo className={styles.logo} />
@@ -42,19 +36,19 @@ export function Header() {
             as="link"
             variant="link"
             size="md"
-            href="tel:+74955272121"
+            href={CONTACTS.phoneLink}
             className={styles.headerPhonePC}
           >
-            <Animate>+7 495 527 21 21</Animate>
+            <Animate>{CONTACTS.phoneFormatted}</Animate>
           </Button>
           <Button
             as="link"
             variant="ghost"
             size="sm"
             href="/form"
-            className={`${styles.headerFormBtn} color-accent`}
+            className={styles.headerFormBtn}
           >
-            <Animate>Заказать звонок</Animate>
+            <Animate>{UI.header.ctaButton}</Animate>
           </Button>
         </div>
       </div>

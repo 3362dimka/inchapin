@@ -1,5 +1,5 @@
-import style from "./page.module.scss";
+import { FormModalWrapper } from "@/components/blocks/form/FormModalWrapper";
 
 export default function FormPage() {
-  return <div className={style.block}>Страница формы /form/</div>;
+  return <FormModalWrapper />;
 }
