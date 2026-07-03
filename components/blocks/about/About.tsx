@@ -18,6 +18,7 @@ export function About() {
           <Image
             className={styles.img}
             src="/images/about.webp"
+            quality={90}
             width={733}
             height={900}
             alt="О проекте INCHAPIN"

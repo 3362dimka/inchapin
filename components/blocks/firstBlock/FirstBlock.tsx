@@ -15,6 +15,8 @@ export function FirstBlock() {
           width={1760}
           height={600}
           alt="hero"
+          preload={true}
+          quality={90}
           loading="eager"
           sizes="(max-width: 767px) 100vw, 1760px"
         />

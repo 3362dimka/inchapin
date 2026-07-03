@@ -27,6 +27,7 @@ export function Video() {
         <div className={`${styles.VideoDecor}`}></div>
         <div className={`${styles.VideoPreview}`}>
           <Image
+            quality={90}
             className={`${styles.img}`}
             src="/images/video-preview.webp"
             width={241}
