@@ -36,7 +36,11 @@ export function VideoModal({ isOpen, onClose, src }: VideoModalProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const closeModal = useCallback(async () => {
-    if (document.fullscreenElement || (document as unknown as { webkitFullscreenElement?: Element }).webkitFullscreenElement) {
+    if (
+      document.fullscreenElement ||
+      (document as unknown as { webkitFullscreenElement?: Element })
+        .webkitFullscreenElement
+    ) {
       await exitFullscreen().catch(() => {});
     }
     onClose();
@@ -46,7 +50,10 @@ export function VideoModal({ isOpen, onClose, src }: VideoModalProps) {
     if (!isOpen || !containerRef.current) return;
 
     const handleFullscreenChange = () => {
-      const isFS = document.fullscreenElement || (document as unknown as { webkitFullscreenElement?: Element }).webkitFullscreenElement;
+      const isFS =
+        document.fullscreenElement ||
+        (document as unknown as { webkitFullscreenElement?: Element })
+          .webkitFullscreenElement;
       if (!isFS) {
         onClose();
       }
@@ -61,7 +68,10 @@ export function VideoModal({ isOpen, onClose, src }: VideoModalProps) {
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange,
+      );
     };
   }, [isOpen, onClose]);
 
@@ -96,7 +106,7 @@ export function VideoModal({ isOpen, onClose, src }: VideoModalProps) {
           autoPlay
           controls
           playsInline
-          poster="/images/video-preview.jpg"
+          poster="/images/video-preview.webp"
         >
           <source src={src} type="video/mp4" />
           Ваш браузер не поддерживает видео.

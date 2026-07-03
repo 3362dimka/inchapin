@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       "Уютное и безопасное пространство для счастливой, спокойной и размеренной жизни. Квартиры от 65 до 356 м².",
     images: [
       {
-        url: "/images/hero-pc.jpg",
+        url: "/images/hero-pc.webp",
         width: 1760,
         height: 600,
         alt: "INCHAPIN - Дом бизнес-класса",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "INCHAPIN - Дом бизнес-класса для ценителей роскоши",
     description:
       "Уютное и безопасное пространство для счастливой, спокойной и размеренной жизни.",
-    images: ["/images/hero-pc.jpg"],
+    images: ["/images/hero-pc.webp"],
   },
   alternates: {
     canonical: SITE_URL,

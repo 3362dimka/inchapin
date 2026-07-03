@@ -17,7 +17,7 @@ export function About() {
         <div className={styles.imgCnt}>
           <Image
             className={styles.img}
-            src="/images/about.jpg"
+            src="/images/about.webp"
             width={733}
             height={900}
             alt="О проекте INCHAPIN"

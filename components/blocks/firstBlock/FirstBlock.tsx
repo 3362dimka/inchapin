@@ -8,10 +8,10 @@ export function FirstBlock() {
   return (
     <div className={styles.firstBlock}>
       <picture className={`${styles.firstBlockPic} fadeInUp`}>
-        <source media="(max-width: 767px)" srcSet="/images/hero-mob.jpg" />
+        <source media="(max-width: 767px)" srcSet="/images/hero-mob.webp" />
         <Image
           className={`${styles.firstBlockImg}`}
-          src="/images/hero-pc.jpg"
+          src="/images/hero-pc.webp"
           width={1760}
           height={600}
           alt="hero"
