@@ -8,14 +8,14 @@ export function FirstBlock() {
   return (
     <div className={styles.firstBlock}>
       <picture className={`${styles.firstBlockPic} fadeInUp`}>
-        <source media="(max-width: 767px)" srcSet="/images/hero-mob.webp" />
+        <source media="(min-width: 768px)" srcSet="/images/hero-pc.webp" />
         <Image
           className={`${styles.firstBlockImg}`}
-          src="/images/hero-pc.webp"
-          width={1760}
-          height={600}
-          alt="hero"
+          src="/images/hero-mob.webp"
+          width={640}
+          height={626}
           preload={true}
+          alt="hero"
           quality={90}
           loading="eager"
           sizes="(max-width: 767px) 100vw, 1760px"

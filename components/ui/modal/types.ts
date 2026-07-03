@@ -10,6 +10,7 @@ export interface ModalContextType {
 export interface ModalProps {
   children: React.ReactNode;
   onClose: () => void;
+  closing?: boolean;
 }
 
 export interface ModalHeaderProps {

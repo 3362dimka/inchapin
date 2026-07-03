@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./BurgerMenu.module.scss";
 import Modal from "@/components/ui/modal/Modal";
 import { UI } from "@/data/ui";
+import { HeaderSelect } from "@/components/layout/header/HeaderSelect";
 
 export function BurgerMenu({
   children,
@@ -12,6 +14,32 @@ export function BurgerMenu({
   children: React.ReactNode;
 }>) {
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const pathname = usePathname();
+  const prevPathname = useRef(pathname);
+
+  const handleClose = useCallback(() => {
+    setClosing(true);
+    setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+    }, 300);
+  }, []);
+
+  useEffect(() => {
+    if (prevPathname.current !== pathname && open) {
+      handleClose();
+    }
+    prevPathname.current = pathname;
+  }, [pathname, open, handleClose]);
+
+  const handleToggle = () => {
+    if (open) {
+      handleClose();
+    } else {
+      setOpen(true);
+    }
+  };
 
   return (
     <>
@@ -19,7 +47,7 @@ export function BurgerMenu({
         aria-expanded={open}
         aria-label={open ? "Закрыть меню" : "Открыть меню"}
         className={`${styles.burgerMenu}`}
-        onClick={() => setOpen((s) => !s)}
+        onClick={handleToggle}
       >
         <div className={`${styles.burgerIcon} ${open ? styles.open : ""}`}>
           <div />
@@ -30,18 +58,24 @@ export function BurgerMenu({
       </button>
 
       {open && (
-        <Modal onClose={() => setOpen(false)}>
+        <Modal onClose={handleClose} closing={closing}>
           <Modal.Header>{UI.menu.title}</Modal.Header>
           <Modal.Body>
             <nav className={styles.menuNav}>
               <ul>
                 {UI.menu.nav.map((item) => (
                   <li key={item.href}>
-                    <Link href={item.href}>{item.label}</Link>
+                    <Link
+                      href={item.href}
+                      className={pathname === item.href ? styles.active : ""}
+                    >
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </nav>
+            <HeaderSelect className={styles.menuSelect} />
           </Modal.Body>
         </Modal>
       )}

@@ -67,6 +67,10 @@
   }
 }
 
+.menuSelect {
+  width: 100%;
+}
+
 .menuNav {
   ul {
     list-style: none;
@@ -74,6 +78,7 @@
     padding: 0;
     display: grid;
     gap: 16px;
+    margin-bottom: 40px;
   }
 
   a {
@@ -86,5 +91,9 @@
   a:hover {
     color: $color-accent;
     transform: translateX(6px);
+  }
+
+  a.active {
+    color: $color-accent;
   }
 }

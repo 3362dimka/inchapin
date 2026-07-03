@@ -10,18 +10,14 @@ export type { ModalProps, ModalHeaderProps, ModalBodyProps } from "./types";
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
-function ModalComponent({ children, onClose }: ModalProps) {
-  const [closing, setClosing] = useState(false);
+function ModalComponent({ children, onClose, closing: externalClosing }: ModalProps) {
+  const [internalClosing, setInternalClosing] = useState(false);
+  const closing = externalClosing ?? internalClosing;
   const ref = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const startClose = useCallback(() => {
     if (closing) return;
-    setClosing(true);
+    setInternalClosing(true);
     setTimeout(() => {
       onClose();
     }, 300);
@@ -41,12 +37,12 @@ function ModalComponent({ children, onClose }: ModalProps) {
 
   useEffect(() => {
     return () => {
-      setClosing(false);
+      setInternalClosing(false);
     };
   }, []);
 
   const content = useMemo(() => (
-    <ModalContext.Provider value={{ onClose, closing, setClosing, startClose }}>
+    <ModalContext.Provider value={{ onClose, closing, setClosing: setInternalClosing, startClose }}>
       <div className={`${styles.overlay} ${closing ? styles.closing : ""}`}>
         <button onClick={startClose} className={styles.closeBtn}>
           <CloseIcon />
@@ -61,9 +57,9 @@ function ModalComponent({ children, onClose }: ModalProps) {
         </div>
       </div>
     </ModalContext.Provider>
-  ), [children, closing, onClose, startClose, setClosing]);
+  ), [children, closing, onClose, startClose, setInternalClosing]);
 
-  if (!mounted) return null;
+  if (typeof document === "undefined") return null;
 
   return createPortal(content, document.body);
 }
