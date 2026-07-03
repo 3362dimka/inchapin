@@ -21,6 +21,7 @@ export function Header() {
               size="md"
               href={CONTACTS.phoneLink}
               className={styles.headerPhoneMob}
+              aria-label="Phone"
             >
               <PhoneIcon />
             </Button>
@@ -28,7 +29,7 @@ export function Header() {
 
           <HeaderSelect className={styles.headerSelect} />
         </div>
-        <Link href="/" className={styles.logoLink}>
+        <Link href="/" className={styles.logoLink} aria-label="Logo">
           <Logo className={styles.logo} />
         </Link>
         <div className={styles.headerBlock}>

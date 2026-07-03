@@ -65,7 +65,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false,
+  userScalable: true,
 };
 
 export default function RootLayout({
@@ -80,7 +80,7 @@ export default function RootLayout({
       <body>
         <Header />
         <ScrollbarProvider>
-          <div className="container">
+          <div className="container" role="main">
             {children}
             {modal}
           </div>
